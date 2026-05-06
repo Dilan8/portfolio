@@ -15,9 +15,9 @@ const projects = [
       note: "Enterprise project – code not publicly available",
       sections: [
         { heading: "Overview", body: "Designed and implemented a centralized monitoring dashboard to provide real-time visibility into critical business workflows involving a third-party SaaS platform, Varicent." },
-        { heading: "Business Impact", body: "Supported Sales Consultants, District Sales Managers, Protein and Produce Specialists, and New Business Developers — ensuring accurate and timely data processing for sales performance and incentive calculations." },
-        { heading: "What I Built", body: "The platform handled daily and weekly scheduled processes — data extraction, file generation, secure file transfers via SFTP, and database updates across multiple systems using Node.js-based backend services. Integrated with Varicent APIs to trigger processes, monitor execution status, and validate outcomes." },
-        { heading: "Scale", body: "The system processed millions of invoice records and ensured accurate reporting of sales performance and incentive payouts. Implemented automated data validation by comparing record counts between internal databases and Varicent systems — replacing manual verification entirely." },
+        { heading: "Business Impact", body: "Supported Sales Consultants, District Sales Managers, Protein and Produce Specialists, and New Business Developers ensuring accurate and timely data processing for sales performance and incentive calculations." },
+        { heading: "What I Built", body: "The platform handled daily and weekly scheduled processes data extraction, file generation, secure file transfers via SFTP, and database updates across multiple systems using Node.js-based backend services. Integrated with Varicent APIs to trigger processes, monitor execution status, and validate outcomes." },
+        { heading: "Scale", body: "The system processed millions of invoice records and ensured accurate reporting of sales performance and incentive payouts. Implemented automated data validation by comparing record counts between internal databases and Varicent systems replacing manual verification entirely." },
         { heading: "Outcome", body: "Significantly reduced MTTR and improved operational visibility. Non-technical users could now monitor job status, detect failures, and ensure smooth workflow execution without engineering involvement." }
       ]
     }
@@ -31,15 +31,15 @@ const projects = [
     badgeColor: "#0284C7",
     icon: "🚀",
     modal: {
-      title: "Automated CI/CD Pipeline — AWS",
+      title: "Automated CI/CD Pipeline  AWS",
       githubUrl: "https://github.com/Dilan8/Jenkins-Pipeline",
       note: null,
       sections: [
-        { heading: "Overview", body: "Built a fully automated, production-equivalent CI/CD pipeline from scratch on AWS. A single git push triggers the entire flow — build, containerise, push to registry, and deploy — with zero manual steps." },
+        { heading: "Overview", body: "Built a fully automated, production-equivalent CI/CD pipeline from scratch on AWS. A single git push triggers the entire flowbuild, containerise, push to registry, and deploy with zero manual steps." },
         { heading: "Pipeline Flow", body: "Developer pushes code to GitHub. GitHub webhook triggers Jenkins on EC2. Jenkins runs npm install and npm run build. Docker builds a multi-stage image. Image is pushed to Amazon ECR. ECS update-service forces a new Fargate deployment. React app is live." },
         { heading: "Infrastructure as Code", body: "Entire AWS infrastructure defined in Terraform across 7 files: vpc.tf, security.tf, ec2.tf, ecr.tf, ecs.tf, variables.tf, and outputs.tf. Remote state stored in S3 with encryption enabled." },
         { heading: "Networking Design", body: "Custom VPC (10.0.0.0/16) with two public subnets across separate Availability Zones. Internet Gateway enables inbound traffic. Security groups restrict Jenkins UI to port 8080 and the app to port 5173." },
-        { heading: "Security", body: "No AWS credentials stored anywhere. Jenkins EC2 uses an IAM instance role for ECR push and ECS deploy permissions — credentials are temporary and auto-rotate. ECS tasks use a separate task execution role." },
+        { heading: "Security", body: "No AWS credentials stored anywhere. Jenkins EC2 uses an IAM instance role for ECR push and ECS deploy permissions credentials are temporary and auto-rotate. ECS tasks use a separate task execution role." },
         { heading: "Outcome", body: "Fully automated pipeline where every git push results in a live deployment within minutes. Infrastructure can be destroyed and recreated with two commands. Demonstrates end-to-end SRE skills." }
       ]
     }
@@ -47,7 +47,7 @@ const projects = [
   {
     id: "terraform",
     title: "Terraform Infrastructure",
-    short: "Complete AWS infrastructure as code — VPC, subnets, EC2, ECS, ECR, IAM roles, and S3 remote state.",
+    short: "Complete AWS infrastructure as code  VPC, subnets, EC2, ECS, ECR, IAM roles, and S3 remote state.",
     tech: "Terraform · AWS VPC · EC2 · ECS · ECR · IAM · S3 · Security Groups",
     badge: "Personal Project",
     badgeColor: "#059669",
@@ -64,7 +64,7 @@ const skills = [
 ];
 
 const whatIDo = [
-  { icon: "🏗️", title: "Infrastructure as Code", body: "Design and provision entire AWS environments using Terraform — VPC, EC2, ECS, IAM, S3 — reproducible and version controlled." },
+  { icon: "🏗️", title: "Infrastructure as Code", body: "Design and provision entire AWS environments using Terraform  VPC, EC2, ECS, IAM, S3  reproducible and version controlled." },
   { icon: "🔄", title: "CI/CD Automation", body: "Build end-to-end pipelines using Jenkins and GitHub Actions. Code goes from git push to live deployment automatically." },
   { icon: "📡", title: "Observability", body: "Set up CloudWatch and Datadog dashboards, log pipelines, and alerting so teams know about issues before users do." },
   { icon: "🐳", title: "Containerisation", body: "Package applications in Docker using multi-stage builds, push to ECR, and orchestrate with ECS Fargate." },
@@ -201,8 +201,8 @@ export default function App() {
 
           <p style={{ fontSize: "14px", color: "#64748B", lineHeight: 1.8, marginBottom: "28px", maxWidth: "660px" }}>
             Originally based in Sri Lanka, now relocated to <strong style={{ color: "#94A3B8" }}>Melbourne, Australia</strong>.
-            During my transition I built production-grade AWS projects from scratch — including a fully automated
-            CI/CD pipeline — to deepen hands-on cloud and DevOps skills beyond my professional experience.
+            During my transition I built production-grade AWS projects from scratch  including a fully automated
+            CI/CD pipeline  to deepen hands-on cloud and DevOps skills beyond my professional experience.
           </p>
 
           <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", marginBottom: "48px" }}>
