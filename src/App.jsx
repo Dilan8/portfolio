@@ -16,8 +16,8 @@ const projects = [
       sections: [
         { heading: "Overview", body: "Designed and implemented a centralized monitoring dashboard to provide real-time visibility into critical business workflows involving a third-party SaaS platform, Varicent." },
         { heading: "Business Impact", body: "Supported Sales Consultants, District Sales Managers, Protein and Produce Specialists, and New Business Developers ensuring accurate and timely data processing for sales performance and incentive calculations." },
-        { heading: "What I Built", body: "The platform handled daily and weekly scheduled processes data extraction, file generation, secure file transfers via SFTP, and database updates across multiple systems using Node.js-based backend services. Integrated with Varicent APIs to trigger processes, monitor execution status, and validate outcomes." },
-        { heading: "Scale", body: "The system processed millions of invoice records and ensured accurate reporting of sales performance and incentive payouts. Implemented automated data validation by comparing record counts between internal databases and Varicent systems replacing manual verification entirely." },
+        { heading: "What I Built", body: "The platform handled daily and weekly scheduled processes — data extraction, file generation, secure file transfers via SFTP, and database updates across multiple systems using Node.js-based backend services. Integrated with Varicent APIs to trigger processes, monitor execution status, and validate outcomes." },
+        { heading: "Scale", body: "The system processed millions of invoice records and ensured accurate reporting of sales performance and incentive payouts. Implemented automated data validation by comparing record counts between internal databases and Varicent systems — replacing manual verification entirely." },
         { heading: "Outcome", body: "Significantly reduced MTTR and improved operational visibility. Non-technical users could now monitor job status, detect failures, and ensure smooth workflow execution without engineering involvement." }
       ]
     }
@@ -25,30 +25,31 @@ const projects = [
   {
     id: "cicd",
     title: "AWS CI/CD Pipeline",
-    short: "Fully automated pipeline: git push triggers build, Docker image creation, ECR push and ECS deployment.",
-    tech: "AWS ECS · ECR · EC2 · Jenkins · Docker · Terraform · VPC · IAM · S3",
+    short: "Fully automated pipeline: git push triggers build, Docker image creation, ECR push and ECS deployment — with live Grafana monitoring dashboard.",
+    tech: "AWS ECS · ECR · EC2 · Jenkins · Docker · Terraform · VPC · IAM · ALB · Grafana · CloudWatch · S3",
     badge: "Personal Project",
     badgeColor: "#0284C7",
     icon: "🚀",
     modal: {
-      title: "Automated CI/CD Pipeline  AWS",
+      title: "Automated CI/CD Pipeline — AWS",
       githubUrl: "https://github.com/Dilan8/Jenkins-Pipeline",
       note: null,
       sections: [
-        { heading: "Overview", body: "Built a fully automated, production-equivalent CI/CD pipeline from scratch on AWS. A single git push triggers the entire flowbuild, containerise, push to registry, and deploy with zero manual steps." },
-        { heading: "Pipeline Flow", body: "Developer pushes code to GitHub. GitHub webhook triggers Jenkins on EC2. Jenkins runs npm install and npm run build. Docker builds a multi-stage image. Image is pushed to Amazon ECR. ECS update-service forces a new Fargate deployment. React app is live." },
-        { heading: "Infrastructure as Code", body: "Entire AWS infrastructure defined in Terraform across 7 files: vpc.tf, security.tf, ec2.tf, ecr.tf, ecs.tf, variables.tf, and outputs.tf. Remote state stored in S3 with encryption enabled." },
-        { heading: "Networking Design", body: "Custom VPC (10.0.0.0/16) with two public subnets across separate Availability Zones. Internet Gateway enables inbound traffic. Security groups restrict Jenkins UI to port 8080 and the app to port 5173." },
-        { heading: "Security", body: "No AWS credentials stored anywhere. Jenkins EC2 uses an IAM instance role for ECR push and ECS deploy permissions credentials are temporary and auto-rotate. ECS tasks use a separate task execution role." },
-        { heading: "Outcome", body: "Fully automated pipeline where every git push results in a live deployment within minutes. Infrastructure can be destroyed and recreated with two commands. Demonstrates end-to-end SRE skills." }
+        { heading: "Overview", body: "Built a fully automated, production-equivalent CI/CD pipeline from scratch on AWS. A single git push triggers the entire flow — build, containerise, push to registry, and deploy — with zero manual steps." },
+        { heading: "Pipeline Flow", body: "Developer pushes code to GitHub. GitHub webhook triggers Jenkins on EC2. Jenkins runs npm install and npm run build. Docker builds a multi-stage image. Image is pushed to Amazon ECR. ECS update-service forces a new Fargate deployment. React app is live behind the ALB." },
+        { heading: "Infrastructure as Code", body: "Entire AWS infrastructure defined in Terraform across 9 files: vpc.tf, security.tf, ec2.tf, ecr.tf, ecs.tf, alb.tf, autoscaling.tf, variables.tf, and outputs.tf. Remote state stored in S3 with encryption enabled." },
+        { heading: "Networking and Security", body: "Custom VPC (10.0.0.0/16) with two public subnets across separate Availability Zones. ALB in front of ECS — users cannot bypass the load balancer. ECS security group restricts port 5173 to ALB only. No AWS credentials stored anywhere — IAM roles handle all authentication." },
+        { heading: "Auto Scaling", body: "ECS service auto scales based on CPU utilisation. Target 60% CPU — adds tasks automatically up to maximum 5. Scale out in 60 seconds, scale in after 5 minutes to prevent yo-yo scaling. Minimum 1 task always running." },
+        { heading: "Grafana Monitoring", body: "Live Grafana Cloud dashboard connected to AWS CloudWatch showing real-time metrics: ECS CPU utilisation (spike visible on each deployment), ECS memory usage, ALB request count, and ALB response time (0.002-0.004 seconds). IAM read-only user grafana-cloudwatch-reader created with CloudWatchReadOnlyAccess and CloudWatchLogsReadOnlyAccess following least privilege." },
+        { heading: "Outcome", body: "Fully automated pipeline where every git push results in a live deployment within minutes. Infrastructure can be destroyed and recreated with two commands. Complete production-grade observability with live Grafana dashboard showing real traffic and deployment spikes." }
       ]
     }
   },
   {
     id: "terraform",
     title: "Terraform Infrastructure",
-    short: "Complete AWS infrastructure as code  VPC, subnets, EC2, ECS, ECR, IAM roles, and S3 remote state.",
-    tech: "Terraform · AWS VPC · EC2 · ECS · ECR · IAM · S3 · Security Groups",
+    short: "Complete AWS infrastructure as code — VPC, subnets, EC2, ECS, ECR, ALB, Auto Scaling, IAM roles, and S3 remote state.",
+    tech: "Terraform · AWS VPC · EC2 · ECS · ECR · ALB · IAM · S3 · Security Groups",
     badge: "Personal Project",
     badgeColor: "#059669",
     icon: "⚙️",
@@ -59,14 +60,14 @@ const projects = [
 const skills = [
   { category: "Cloud & Infrastructure", icon: "☁️", items: ["AWS", "Azure", "Terraform", "VPC", "EC2", "ECS", "ECR", "IAM", "S3"] },
   { category: "CI/CD & Automation", icon: "🔄", items: ["Jenkins", "GitHub Actions", "AWS CodePipeline", "Docker", "Webhooks", "Bash"] },
-  { category: "Monitoring & Observability", icon: "📡", items: ["CloudWatch", "Datadog", "Log Analysis", "Alerting", "MTTR Reduction"] },
+  { category: "Monitoring & Observability", icon: "📡", items: ["Grafana", "CloudWatch", "Datadog", "Log Analysis", "Alerting", "MTTR Reduction"] },
   { category: "Programming", icon: "💻", items: ["Node.js", "Python", "React", "JavaScript", "Java"] }
 ];
 
 const whatIDo = [
-  { icon: "🏗️", title: "Infrastructure as Code", body: "Design and provision entire AWS environments using Terraform  VPC, EC2, ECS, IAM, S3  reproducible and version controlled." },
+  { icon: "🏗️", title: "Infrastructure as Code", body: "Design and provision entire AWS environments using Terraform — VPC, EC2, ECS, IAM, S3 — reproducible and version controlled." },
   { icon: "🔄", title: "CI/CD Automation", body: "Build end-to-end pipelines using Jenkins and GitHub Actions. Code goes from git push to live deployment automatically." },
-  { icon: "📡", title: "Observability", body: "Set up CloudWatch and Datadog dashboards, log pipelines, and alerting so teams know about issues before users do." },
+  { icon: "📡", title: "Observability", body: "Set up Grafana dashboards connected to CloudWatch and Datadog — log pipelines and alerting so teams know about issues before users do." },
   { icon: "🐳", title: "Containerisation", body: "Package applications in Docker using multi-stage builds, push to ECR, and orchestrate with ECS Fargate." },
   { icon: "🔒", title: "Security & IAM", body: "Apply least-privilege IAM roles, eliminate hardcoded credentials, and secure infrastructure at the network and identity layer." },
   { icon: "🚨", title: "Incident Management", body: "Drive MTTR reduction through runbooks, automated alerting, post-incident reviews, and proactive reliability improvements." }
@@ -97,17 +98,14 @@ function ProjectModal({ project, onClose }) {
       style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.85)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 50, padding: "16px" }}
     >
       <div style={{ background: "#0F172A", maxWidth: "680px", width: "100%", padding: "28px 24px", borderRadius: "20px", position: "relative", maxHeight: "90vh", overflowY: "auto", border: "1px solid #1E3A5F", boxShadow: "0 25px 60px rgba(0,0,0,0.6)" }}>
-
         <button onClick={onClose} style={{ position: "absolute", top: "16px", right: "16px", background: "#1E293B", border: "1px solid #334155", borderRadius: "8px", color: "#94A3B8", cursor: "pointer", width: "32px", height: "32px", fontSize: "16px" }}>
           ✕
         </button>
-
         <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "6px" }}>
           <span style={{ fontSize: "24px" }}>{project.icon}</span>
           <h2 style={{ fontSize: "20px", fontWeight: 700, color: "#60A5FA", margin: 0 }}>{m.title}</h2>
         </div>
         <p style={{ fontSize: "11px", color: "#475569", marginBottom: "24px", lineHeight: 1.6 }}>{project.tech}</p>
-
         <div style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
           {m.sections.map(function(s, i) {
             return (
@@ -118,7 +116,6 @@ function ProjectModal({ project, onClose }) {
             );
           })}
         </div>
-
         <div style={{ marginTop: "24px", paddingTop: "16px", borderTop: "1px solid #1E293B", display: "flex", flexWrap: "wrap", alignItems: "center", gap: "10px" }}>
           {m.githubUrl ? (
             <a href={m.githubUrl} target="_blank" rel="noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "#1E293B", border: "1px solid #334155", color: "#60A5FA", padding: "8px 16px", borderRadius: "8px", fontSize: "13px", textDecoration: "none", fontWeight: 500 }}>
@@ -136,7 +133,6 @@ export default function App() {
   const [openProject, setOpenProject] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const isMobile = useIsMobile();
-
   const navLinks = ["About", "Skills", "Projects", "Contact"];
 
   return (
@@ -146,7 +142,6 @@ export default function App() {
       <nav style={{ position: "sticky", top: 0, zIndex: 40, background: "rgba(8,15,26,0.95)", backdropFilter: "blur(12px)", borderBottom: "1px solid #0F2040" }}>
         <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "0 20px", height: "56px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <span style={{ fontSize: "16px", fontWeight: 700, color: "#60A5FA" }}>DV</span>
-
           {isMobile ? (
             <button onClick={function() { setMenuOpen(!menuOpen); }} style={{ background: "none", border: "1px solid #1E293B", borderRadius: "8px", color: "#94A3B8", cursor: "pointer", padding: "6px 10px", fontSize: "18px" }}>
               {menuOpen ? "✕" : "☰"}
@@ -164,7 +159,6 @@ export default function App() {
             </div>
           )}
         </div>
-
         {isMobile && menuOpen ? (
           <div style={{ background: "#0F172A", borderTop: "1px solid #1E293B", padding: "12px 20px", display: "flex", flexDirection: "column", gap: "4px" }}>
             {navLinks.map(function(item) {
@@ -182,29 +176,24 @@ export default function App() {
 
         {/* HERO */}
         <section id="about" style={{ paddingTop: "60px", paddingBottom: "60px" }}>
-
           <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "#0F2040", border: "1px solid #1D4ED8", borderRadius: "20px", padding: "5px 12px", marginBottom: "20px" }}>
             <span style={{ width: "7px", height: "7px", borderRadius: "50%", background: "#22C55E", display: "inline-block" }}></span>
             <span style={{ fontSize: "12px", color: "#60A5FA", fontWeight: 500 }}>Open to opportunities in Australia</span>
           </div>
-
           <p style={{ fontSize: "13px", color: "#3B82F6", fontWeight: 600, marginBottom: "8px", letterSpacing: "0.08em" }}>SITE RELIABILITY ENGINEER</p>
           <h1 style={{ fontSize: isMobile ? "38px" : "54px", fontWeight: 800, lineHeight: 1.1, marginBottom: "20px", color: "#F1F5F9" }}>
             Dilan<br /><span style={{ color: "#3B82F6" }}>Vasantharaj</span>
           </h1>
-
           <p style={{ fontSize: "15px", color: "#64748B", lineHeight: 1.8, marginBottom: "14px", maxWidth: "660px" }}>
             SRE with <strong style={{ color: "#94A3B8" }}>3.5+ years</strong> of experience building reliable, scalable cloud infrastructure on AWS.
             Specialising in CI/CD automation, infrastructure as code with Terraform, container orchestration with ECS and Docker,
-            and production observability using CloudWatch and Datadog.
+            and production observability using Grafana, CloudWatch and Datadog.
           </p>
-
           <p style={{ fontSize: "14px", color: "#64748B", lineHeight: 1.8, marginBottom: "28px", maxWidth: "660px" }}>
             Originally based in Sri Lanka, now relocated to <strong style={{ color: "#94A3B8" }}>Melbourne, Australia</strong>.
-            During my transition I built production-grade AWS projects from scratch  including a fully automated
-            CI/CD pipeline  to deepen hands-on cloud and DevOps skills beyond my professional experience.
+            During my transition I built production-grade AWS projects from scratch — including a fully automated
+            CI/CD pipeline with live Grafana monitoring — to deepen hands-on cloud and DevOps skills beyond my professional experience.
           </p>
-
           <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", marginBottom: "48px" }}>
             <a href="#projects" style={{ background: "#2563EB", color: "#fff", padding: "11px 22px", borderRadius: "10px", textDecoration: "none", fontSize: "14px", fontWeight: 600 }}>View Projects</a>
             <a href="#contact" style={{ background: "transparent", color: "#60A5FA", padding: "11px 22px", borderRadius: "10px", textDecoration: "none", fontSize: "14px", fontWeight: 600, border: "1px solid #1D4ED8" }}>Get in Touch</a>
@@ -308,14 +297,11 @@ export default function App() {
         <section id="contact" style={{ paddingBottom: "60px" }}>
           <p style={{ fontSize: "12px", fontWeight: 600, color: "#3B82F6", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "16px" }}>Contact</p>
           <div style={{ background: "#0F172A", border: "1px solid #1E293B", borderRadius: "16px", padding: isMobile ? "28px 20px" : "40px" }}>
-
             <h3 style={{ fontSize: isMobile ? "20px" : "24px", fontWeight: 700, color: "#F1F5F9", marginBottom: "8px" }}>Let's work together</h3>
             <p style={{ fontSize: "14px", color: "#475569", marginBottom: "28px", lineHeight: 1.7, maxWidth: "480px" }}>
               Open to SRE, DevOps, and Cloud Engineering roles in Melbourne and across Australia. Feel free to reach out via any channel below.
             </p>
-
             <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, 1fr)", gap: "12px" }}>
-
               {[
                 { icon: "📧", label: "Email", value: "vasandarajdilan64@gmail.com", href: "mailto:vasandarajdilan64@gmail.com" },
                 { icon: "🔗", label: "LinkedIn", value: "linkedin.com/in/dilan-vasandaraj", href: "https://linkedin.com/in/dilan-vasandaraj" },
@@ -331,9 +317,7 @@ export default function App() {
                     </div>
                   </div>
                 );
-
                 const baseStyle = { background: "#1E293B", border: "1px solid #334155", borderRadius: "12px", padding: "16px", display: "block", textDecoration: "none", transition: "border-color 0.2s" };
-
                 return item.href ? (
                   <a key={item.label} href={item.href} target={item.href.startsWith("mailto") ? undefined : "_blank"} rel="noreferrer"
                     style={baseStyle}
@@ -353,7 +337,7 @@ export default function App() {
       {/* FOOTER */}
       <div style={{ borderTop: "1px solid #0F2040", padding: "18px 20px", textAlign: "center" }}>
         <p style={{ fontSize: "12px", color: "#1E3A5F", margin: 0 }}>
-          Built with React + Vite · Deployed via Jenkins CI/CD to AWS ECS Fargate
+          Built with React + Vite · Deployed via Jenkins CI/CD to AWS ECS Fargate · Monitored with Grafana
         </p>
       </div>
 
