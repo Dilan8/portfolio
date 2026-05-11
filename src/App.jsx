@@ -1,5 +1,67 @@
 import { useState, useEffect } from "react";
 
+// ── THEME COLOURS ──────────────────────────────────────────────
+const DARK = {
+  bg:          "#080F1A",
+  surface:     "#0F172A",
+  border:      "#1E293B",
+  borderHover: "#2563EB",
+  navBg:       "rgba(8,15,26,0.95)",
+  navBorder:   "#0F2040",
+  text:        "#E2E8F0",
+  textSub:     "#64748B",
+  textMuted:   "#475569",
+  textDim:     "#334155",
+  accent:      "#3B82F6",
+  accentBold:  "#2563EB",
+  accentLight: "#60A5FA",
+  accentBg:    "#0F2040",
+  accentBorder:"#1D4ED8",
+  statNum:     "#3B82F6",
+  cardBg:      "#1E293B",
+  cardBorder:  "#334155",
+  modalBg:     "#0F172A",
+  modalBorder: "#1E3A5F",
+  tagBg:       "#0F2040",
+  tagBorder:   "#1D4ED8",
+  tagText:     "#60A5FA",
+  footerText:  "#1E3A5F",
+  green:       "#22C55E",
+  sectionLabel:"#3B82F6",
+  strong:      "#94A3B8",
+};
+
+const LIGHT = {
+  bg:          "#F8FAFC",
+  surface:     "#FFFFFF",
+  border:      "#E2E8F0",
+  borderHover: "#2563EB",
+  navBg:       "rgba(248,250,252,0.95)",
+  navBorder:   "#CBD5E1",
+  text:        "#0F172A",
+  textSub:     "#475569",
+  textMuted:   "#64748B",
+  textDim:     "#94A3B8",
+  accent:      "#2563EB",
+  accentBold:  "#1D4ED8",
+  accentLight: "#1D4ED8",
+  accentBg:    "#EFF6FF",
+  accentBorder:"#BFDBFE",
+  statNum:     "#2563EB",
+  cardBg:      "#F1F5F9",
+  cardBorder:  "#CBD5E1",
+  modalBg:     "#FFFFFF",
+  modalBorder: "#BFDBFE",
+  tagBg:       "#EFF6FF",
+  tagBorder:   "#BFDBFE",
+  tagText:     "#1D4ED8",
+  footerText:  "#94A3B8",
+  green:       "#16A34A",
+  sectionLabel:"#2563EB",
+  strong:      "#1E293B",
+};
+
+// ── DATA ───────────────────────────────────────────────────────
 const projects = [
   {
     id: "monitoring",
@@ -90,39 +152,39 @@ function useIsMobile() {
   return isMobile;
 }
 
-function ProjectModal({ project, onClose }) {
+function ProjectModal({ project, onClose, c }) {
   const m = project.modal;
   return (
     <div
       onClick={function(e) { if (e.target === e.currentTarget) onClose(); }}
-      style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.85)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 50, padding: "16px" }}
+      style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.75)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 50, padding: "16px" }}
     >
-      <div style={{ background: "#0F172A", maxWidth: "680px", width: "100%", padding: "28px 24px", borderRadius: "20px", position: "relative", maxHeight: "90vh", overflowY: "auto", border: "1px solid #1E3A5F", boxShadow: "0 25px 60px rgba(0,0,0,0.6)" }}>
-        <button onClick={onClose} style={{ position: "absolute", top: "16px", right: "16px", background: "#1E293B", border: "1px solid #334155", borderRadius: "8px", color: "#94A3B8", cursor: "pointer", width: "32px", height: "32px", fontSize: "16px" }}>
+      <div style={{ background: c.modalBg, maxWidth: "680px", width: "100%", padding: "28px 24px", borderRadius: "20px", position: "relative", maxHeight: "90vh", overflowY: "auto", border: "1px solid " + c.modalBorder, boxShadow: "0 25px 60px rgba(0,0,0,0.4)" }}>
+        <button onClick={onClose} style={{ position: "absolute", top: "16px", right: "16px", background: c.cardBg, border: "1px solid " + c.cardBorder, borderRadius: "8px", color: c.textMuted, cursor: "pointer", width: "32px", height: "32px", fontSize: "16px" }}>
           ✕
         </button>
         <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "6px" }}>
           <span style={{ fontSize: "24px" }}>{project.icon}</span>
-          <h2 style={{ fontSize: "20px", fontWeight: 700, color: "#60A5FA", margin: 0 }}>{m.title}</h2>
+          <h2 style={{ fontSize: "20px", fontWeight: 700, color: c.accent, margin: 0 }}>{m.title}</h2>
         </div>
-        <p style={{ fontSize: "11px", color: "#475569", marginBottom: "24px", lineHeight: 1.6 }}>{project.tech}</p>
+        <p style={{ fontSize: "11px", color: c.textMuted, marginBottom: "24px", lineHeight: 1.6 }}>{project.tech}</p>
         <div style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
           {m.sections.map(function(s, i) {
             return (
-              <div key={i} style={{ borderLeft: "2px solid #1D4ED8", paddingLeft: "14px" }}>
-                <h3 style={{ fontSize: "10px", fontWeight: 600, color: "#3B82F6", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "5px" }}>{s.heading}</h3>
-                <p style={{ fontSize: "13px", color: "#94A3B8", lineHeight: "1.7", margin: 0 }}>{s.body}</p>
+              <div key={i} style={{ borderLeft: "2px solid " + c.accentBorder, paddingLeft: "14px" }}>
+                <h3 style={{ fontSize: "10px", fontWeight: 600, color: c.accent, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "5px" }}>{s.heading}</h3>
+                <p style={{ fontSize: "13px", color: c.textSub, lineHeight: "1.7", margin: 0 }}>{s.body}</p>
               </div>
             );
           })}
         </div>
-        <div style={{ marginTop: "24px", paddingTop: "16px", borderTop: "1px solid #1E293B", display: "flex", flexWrap: "wrap", alignItems: "center", gap: "10px" }}>
+        <div style={{ marginTop: "24px", paddingTop: "16px", borderTop: "1px solid " + c.border, display: "flex", flexWrap: "wrap", alignItems: "center", gap: "10px" }}>
           {m.githubUrl ? (
-            <a href={m.githubUrl} target="_blank" rel="noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "#1E293B", border: "1px solid #334155", color: "#60A5FA", padding: "8px 16px", borderRadius: "8px", fontSize: "13px", textDecoration: "none", fontWeight: 500 }}>
+            <a href={m.githubUrl} target="_blank" rel="noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: c.cardBg, border: "1px solid " + c.cardBorder, color: c.accentLight, padding: "8px 16px", borderRadius: "8px", fontSize: "13px", textDecoration: "none", fontWeight: 500 }}>
               View on GitHub
             </a>
           ) : null}
-          {m.note ? <span style={{ fontSize: "11px", color: "#475569" }}>{m.note}</span> : null}
+          {m.note ? <span style={{ fontSize: "11px", color: c.textMuted }}>{m.note}</span> : null}
         </div>
       </div>
     </div>
@@ -132,39 +194,55 @@ function ProjectModal({ project, onClose }) {
 export default function App() {
   const [openProject, setOpenProject] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isDark, setIsDark] = useState(true);
   const isMobile = useIsMobile();
   const navLinks = ["About", "Skills", "Projects", "Contact"];
+  const c = isDark ? DARK : LIGHT;
 
   return (
-    <div style={{ background: "#080F1A", color: "#E2E8F0", minHeight: "100vh", fontFamily: "system-ui, -apple-system, sans-serif" }}>
+    <div style={{ background: c.bg, color: c.text, minHeight: "100vh", fontFamily: "system-ui, -apple-system, sans-serif", transition: "background 0.3s, color 0.3s" }}>
 
       {/* NAV */}
-      <nav style={{ position: "sticky", top: 0, zIndex: 40, background: "rgba(8,15,26,0.95)", backdropFilter: "blur(12px)", borderBottom: "1px solid #0F2040" }}>
+      <nav style={{ position: "sticky", top: 0, zIndex: 40, background: c.navBg, backdropFilter: "blur(12px)", borderBottom: "1px solid " + c.navBorder, transition: "background 0.3s" }}>
         <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "0 20px", height: "56px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <span style={{ fontSize: "16px", fontWeight: 700, color: "#60A5FA" }}>DV</span>
-          {isMobile ? (
-            <button onClick={function() { setMenuOpen(!menuOpen); }} style={{ background: "none", border: "1px solid #1E293B", borderRadius: "8px", color: "#94A3B8", cursor: "pointer", padding: "6px 10px", fontSize: "18px" }}>
-              {menuOpen ? "✕" : "☰"}
+          <span style={{ fontSize: "16px", fontWeight: 700, color: c.accentLight }}>DV</span>
+          <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+            {!isMobile ? (
+              <div style={{ display: "flex", gap: "28px" }}>
+                {navLinks.map(function(item) {
+                  return (
+                    <a key={item} href={"#" + item.toLowerCase()} style={{ fontSize: "13px", color: c.textSub, textDecoration: "none", fontWeight: 500, transition: "color 0.2s" }}
+                      onMouseOver={function(e) { e.target.style.color = c.accentLight; }}
+                      onMouseOut={function(e) { e.target.style.color = c.textSub; }}
+                    >{item}</a>
+                  );
+                })}
+              </div>
+            ) : null}
+
+            {/* THEME TOGGLE */}
+            <button
+              onClick={function() { setIsDark(!isDark); }}
+              title={isDark ? "Switch to light mode" : "Switch to dark mode"}
+              style={{ background: c.accentBg, border: "1px solid " + c.accentBorder, borderRadius: "20px", padding: "5px 12px", cursor: "pointer", fontSize: "14px", display: "flex", alignItems: "center", gap: "5px", color: c.accentLight, fontWeight: 500, transition: "all 0.2s" }}
+            >
+              {isDark ? "☀️ Light" : "🌙 Dark"}
             </button>
-          ) : (
-            <div style={{ display: "flex", gap: "28px" }}>
-              {navLinks.map(function(item) {
-                return (
-                  <a key={item} href={"#" + item.toLowerCase()} style={{ fontSize: "13px", color: "#64748B", textDecoration: "none", fontWeight: 500 }}
-                    onMouseOver={function(e) { e.target.style.color = "#60A5FA"; }}
-                    onMouseOut={function(e) { e.target.style.color = "#64748B"; }}
-                  >{item}</a>
-                );
-              })}
-            </div>
-          )}
+
+            {isMobile ? (
+              <button onClick={function() { setMenuOpen(!menuOpen); }} style={{ background: "none", border: "1px solid " + c.border, borderRadius: "8px", color: c.textSub, cursor: "pointer", padding: "6px 10px", fontSize: "18px" }}>
+                {menuOpen ? "✕" : "☰"}
+              </button>
+            ) : null}
+          </div>
         </div>
+
         {isMobile && menuOpen ? (
-          <div style={{ background: "#0F172A", borderTop: "1px solid #1E293B", padding: "12px 20px", display: "flex", flexDirection: "column", gap: "4px" }}>
+          <div style={{ background: c.surface, borderTop: "1px solid " + c.border, padding: "12px 20px", display: "flex", flexDirection: "column", gap: "4px" }}>
             {navLinks.map(function(item) {
               return (
                 <a key={item} href={"#" + item.toLowerCase()} onClick={function() { setMenuOpen(false); }}
-                  style={{ fontSize: "15px", color: "#94A3B8", textDecoration: "none", padding: "10px 0", borderBottom: "1px solid #1E293B" }}
+                  style={{ fontSize: "15px", color: c.textSub, textDecoration: "none", padding: "10px 0", borderBottom: "1px solid " + c.border }}
                 >{item}</a>
               );
             })}
@@ -176,36 +254,36 @@ export default function App() {
 
         {/* HERO */}
         <section id="about" style={{ paddingTop: "60px", paddingBottom: "60px" }}>
-          <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "#0F2040", border: "1px solid #1D4ED8", borderRadius: "20px", padding: "5px 12px", marginBottom: "20px" }}>
-            <span style={{ width: "7px", height: "7px", borderRadius: "50%", background: "#22C55E", display: "inline-block" }}></span>
-            <span style={{ fontSize: "12px", color: "#60A5FA", fontWeight: 500 }}>Open to opportunities in Australia</span>
+          <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: c.accentBg, border: "1px solid " + c.accentBorder, borderRadius: "20px", padding: "5px 12px", marginBottom: "20px" }}>
+            <span style={{ width: "7px", height: "7px", borderRadius: "50%", background: c.green, display: "inline-block" }}></span>
+            <span style={{ fontSize: "12px", color: c.accentLight, fontWeight: 500 }}>Open to opportunities in Australia</span>
           </div>
-          <p style={{ fontSize: "13px", color: "#3B82F6", fontWeight: 600, marginBottom: "8px", letterSpacing: "0.08em" }}>SITE RELIABILITY ENGINEER</p>
-          <h1 style={{ fontSize: isMobile ? "38px" : "54px", fontWeight: 800, lineHeight: 1.1, marginBottom: "20px", color: "#F1F5F9" }}>
-            Dilan<br /><span style={{ color: "#3B82F6" }}>Vasantharaj</span>
+          <p style={{ fontSize: "13px", color: c.accent, fontWeight: 600, marginBottom: "8px", letterSpacing: "0.08em" }}>SITE RELIABILITY ENGINEER</p>
+          <h1 style={{ fontSize: isMobile ? "38px" : "54px", fontWeight: 800, lineHeight: 1.1, marginBottom: "20px", color: c.text }}>
+            Dilan<br /><span style={{ color: c.accent }}>Vasantharaj</span>
           </h1>
-          <p style={{ fontSize: "15px", color: "#64748B", lineHeight: 1.8, marginBottom: "14px", maxWidth: "660px" }}>
-            SRE with <strong style={{ color: "#94A3B8" }}>3.5+ years</strong> of experience building reliable, scalable cloud infrastructure on AWS.
+          <p style={{ fontSize: "15px", color: c.textSub, lineHeight: 1.8, marginBottom: "14px", maxWidth: "660px" }}>
+            SRE with <strong style={{ color: c.strong }}>3.5+ years</strong> of experience building reliable, scalable cloud infrastructure on AWS.
             Specialising in CI/CD automation, infrastructure as code with Terraform, container orchestration with ECS and Docker,
             and production observability using Grafana, CloudWatch and Datadog.
           </p>
-          <p style={{ fontSize: "14px", color: "#64748B", lineHeight: 1.8, marginBottom: "28px", maxWidth: "660px" }}>
-            Originally based in Sri Lanka, now relocated to <strong style={{ color: "#94A3B8" }}>Melbourne, Australia</strong>.
+          <p style={{ fontSize: "14px", color: c.textSub, lineHeight: 1.8, marginBottom: "28px", maxWidth: "660px" }}>
+            Originally based in Sri Lanka, now relocated to <strong style={{ color: c.strong }}>Melbourne, Australia</strong>.
             During my transition I built production-grade AWS projects from scratch — including a fully automated
             CI/CD pipeline with live Grafana monitoring — to deepen hands-on cloud and DevOps skills beyond my professional experience.
           </p>
           <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", marginBottom: "48px" }}>
-            <a href="#projects" style={{ background: "#2563EB", color: "#fff", padding: "11px 22px", borderRadius: "10px", textDecoration: "none", fontSize: "14px", fontWeight: 600 }}>View Projects</a>
-            <a href="#contact" style={{ background: "transparent", color: "#60A5FA", padding: "11px 22px", borderRadius: "10px", textDecoration: "none", fontSize: "14px", fontWeight: 600, border: "1px solid #1D4ED8" }}>Get in Touch</a>
+            <a href="#projects" style={{ background: c.accentBold, color: "#fff", padding: "11px 22px", borderRadius: "10px", textDecoration: "none", fontSize: "14px", fontWeight: 600 }}>View Projects</a>
+            <a href="#contact" style={{ background: "transparent", color: c.accentLight, padding: "11px 22px", borderRadius: "10px", textDecoration: "none", fontSize: "14px", fontWeight: 600, border: "1px solid " + c.accentBorder }}>Get in Touch</a>
           </div>
 
           {/* STATS */}
           <div style={{ display: "grid", gridTemplateColumns: isMobile ? "repeat(2, 1fr)" : "repeat(4, 1fr)", gap: "12px" }}>
             {stats.map(function(s) {
               return (
-                <div key={s.label} style={{ background: "#0F172A", border: "1px solid #1E293B", borderRadius: "14px", padding: "18px", textAlign: "center" }}>
-                  <div style={{ fontSize: isMobile ? "24px" : "28px", fontWeight: 800, color: "#3B82F6" }}>{s.value}</div>
-                  <div style={{ fontSize: "11px", color: "#475569", marginTop: "4px", fontWeight: 500 }}>{s.label}</div>
+                <div key={s.label} style={{ background: c.surface, border: "1px solid " + c.border, borderRadius: "14px", padding: "18px", textAlign: "center" }}>
+                  <div style={{ fontSize: isMobile ? "24px" : "28px", fontWeight: 800, color: c.statNum }}>{s.value}</div>
+                  <div style={{ fontSize: "11px", color: c.textMuted, marginTop: "4px", fontWeight: 500 }}>{s.label}</div>
                 </div>
               );
             })}
@@ -214,14 +292,14 @@ export default function App() {
 
         {/* WHAT I DO */}
         <section style={{ paddingBottom: "60px" }}>
-          <p style={{ fontSize: "12px", fontWeight: 600, color: "#3B82F6", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "16px" }}>What I Do</p>
+          <p style={{ fontSize: "12px", fontWeight: 600, color: c.sectionLabel, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "16px" }}>What I Do</p>
           <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)", gap: "14px" }}>
             {whatIDo.map(function(item) {
               return (
-                <div key={item.title} style={{ background: "#0F172A", border: "1px solid #1E293B", borderRadius: "14px", padding: "22px" }}>
+                <div key={item.title} style={{ background: c.surface, border: "1px solid " + c.border, borderRadius: "14px", padding: "22px" }}>
                   <div style={{ fontSize: "22px", marginBottom: "10px" }}>{item.icon}</div>
-                  <h3 style={{ fontSize: "14px", fontWeight: 600, color: "#E2E8F0", marginBottom: "8px" }}>{item.title}</h3>
-                  <p style={{ fontSize: "13px", color: "#475569", lineHeight: 1.7, margin: 0 }}>{item.body}</p>
+                  <h3 style={{ fontSize: "14px", fontWeight: 600, color: c.text, marginBottom: "8px" }}>{item.title}</h3>
+                  <p style={{ fontSize: "13px", color: c.textSub, lineHeight: 1.7, margin: 0 }}>{item.body}</p>
                 </div>
               );
             })}
@@ -230,19 +308,19 @@ export default function App() {
 
         {/* SKILLS */}
         <section id="skills" style={{ paddingBottom: "60px" }}>
-          <p style={{ fontSize: "12px", fontWeight: 600, color: "#3B82F6", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "16px" }}>Skills</p>
+          <p style={{ fontSize: "12px", fontWeight: 600, color: c.sectionLabel, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "16px" }}>Skills</p>
           <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, 1fr)", gap: "14px" }}>
             {skills.map(function(s) {
               return (
-                <div key={s.category} style={{ background: "#0F172A", border: "1px solid #1E293B", borderRadius: "14px", padding: "22px" }}>
+                <div key={s.category} style={{ background: c.surface, border: "1px solid " + c.border, borderRadius: "14px", padding: "22px" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "14px" }}>
                     <span style={{ fontSize: "18px" }}>{s.icon}</span>
-                    <h3 style={{ fontSize: "14px", fontWeight: 600, color: "#CBD5E1", margin: 0 }}>{s.category}</h3>
+                    <h3 style={{ fontSize: "14px", fontWeight: 600, color: c.text, margin: 0 }}>{s.category}</h3>
                   </div>
                   <div style={{ display: "flex", flexWrap: "wrap", gap: "7px" }}>
                     {s.items.map(function(item) {
                       return (
-                        <span key={item} style={{ background: "#0F2040", border: "1px solid #1D4ED8", color: "#60A5FA", padding: "3px 9px", borderRadius: "6px", fontSize: "12px", fontWeight: 500 }}>
+                        <span key={item} style={{ background: c.tagBg, border: "1px solid " + c.tagBorder, color: c.tagText, padding: "3px 9px", borderRadius: "6px", fontSize: "12px", fontWeight: 500 }}>
                           {item}
                         </span>
                       );
@@ -256,15 +334,15 @@ export default function App() {
 
         {/* PROJECTS */}
         <section id="projects" style={{ paddingBottom: "60px" }}>
-          <p style={{ fontSize: "12px", fontWeight: 600, color: "#3B82F6", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "16px" }}>Projects</p>
+          <p style={{ fontSize: "12px", fontWeight: 600, color: c.sectionLabel, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "16px" }}>Projects</p>
           <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)", gap: "14px" }}>
             {projects.map(function(p) {
               return (
                 <div
                   key={p.id}
-                  style={{ background: "#0F172A", border: "1px solid #1E293B", borderRadius: "16px", padding: "22px", display: "flex", flexDirection: "column", transition: "border-color 0.2s" }}
-                  onMouseOver={function(e) { e.currentTarget.style.borderColor = "#2563EB"; }}
-                  onMouseOut={function(e) { e.currentTarget.style.borderColor = "#1E293B"; }}
+                  style={{ background: c.surface, border: "1px solid " + c.border, borderRadius: "16px", padding: "22px", display: "flex", flexDirection: "column", transition: "border-color 0.2s" }}
+                  onMouseOver={function(e) { e.currentTarget.style.borderColor = c.accentBold; }}
+                  onMouseOut={function(e) { e.currentTarget.style.borderColor = c.border; }}
                 >
                   <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: "12px" }}>
                     <span style={{ fontSize: "26px" }}>{p.icon}</span>
@@ -272,17 +350,17 @@ export default function App() {
                       {p.badge}
                     </span>
                   </div>
-                  <h3 style={{ fontSize: "15px", fontWeight: 700, color: "#F1F5F9", marginBottom: "8px" }}>{p.title}</h3>
-                  <p style={{ fontSize: "13px", color: "#475569", lineHeight: 1.7, flex: 1, marginBottom: "14px" }}>{p.short}</p>
-                  <p style={{ fontSize: "11px", color: "#334155", lineHeight: 1.6, marginBottom: "14px" }}>{p.tech}</p>
+                  <h3 style={{ fontSize: "15px", fontWeight: 700, color: c.text, marginBottom: "8px" }}>{p.title}</h3>
+                  <p style={{ fontSize: "13px", color: c.textSub, lineHeight: 1.7, flex: 1, marginBottom: "14px" }}>{p.short}</p>
+                  <p style={{ fontSize: "11px", color: c.textDim, lineHeight: 1.6, marginBottom: "14px" }}>{p.tech}</p>
                   <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
                     {p.modal ? (
-                      <button onClick={function() { setOpenProject(p); }} style={{ background: "#1D4ED8", color: "#fff", border: "none", padding: "8px 16px", borderRadius: "8px", fontSize: "12px", fontWeight: 600, cursor: "pointer" }}>
+                      <button onClick={function() { setOpenProject(p); }} style={{ background: c.accentBold, color: "#fff", border: "none", padding: "8px 16px", borderRadius: "8px", fontSize: "12px", fontWeight: 600, cursor: "pointer" }}>
                         View Details
                       </button>
                     ) : null}
                     {p.modal && p.modal.githubUrl ? (
-                      <a href={p.modal.githubUrl} target="_blank" rel="noreferrer" style={{ background: "#1E293B", color: "#60A5FA", border: "1px solid #334155", padding: "8px 16px", borderRadius: "8px", fontSize: "12px", fontWeight: 600, textDecoration: "none" }}>
+                      <a href={p.modal.githubUrl} target="_blank" rel="noreferrer" style={{ background: c.cardBg, color: c.accentLight, border: "1px solid " + c.cardBorder, padding: "8px 16px", borderRadius: "8px", fontSize: "12px", fontWeight: 600, textDecoration: "none" }}>
                         GitHub
                       </a>
                     ) : null}
@@ -295,10 +373,10 @@ export default function App() {
 
         {/* CONTACT */}
         <section id="contact" style={{ paddingBottom: "60px" }}>
-          <p style={{ fontSize: "12px", fontWeight: 600, color: "#3B82F6", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "16px" }}>Contact</p>
-          <div style={{ background: "#0F172A", border: "1px solid #1E293B", borderRadius: "16px", padding: isMobile ? "28px 20px" : "40px" }}>
-            <h3 style={{ fontSize: isMobile ? "20px" : "24px", fontWeight: 700, color: "#F1F5F9", marginBottom: "8px" }}>Let's work together</h3>
-            <p style={{ fontSize: "14px", color: "#475569", marginBottom: "28px", lineHeight: 1.7, maxWidth: "480px" }}>
+          <p style={{ fontSize: "12px", fontWeight: 600, color: c.sectionLabel, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "16px" }}>Contact</p>
+          <div style={{ background: c.surface, border: "1px solid " + c.border, borderRadius: "16px", padding: isMobile ? "28px 20px" : "40px" }}>
+            <h3 style={{ fontSize: isMobile ? "20px" : "24px", fontWeight: 700, color: c.text, marginBottom: "8px" }}>Let's work together</h3>
+            <p style={{ fontSize: "14px", color: c.textSub, marginBottom: "28px", lineHeight: 1.7, maxWidth: "480px" }}>
               Open to SRE, DevOps, and Cloud Engineering roles in Melbourne and across Australia. Feel free to reach out via any channel below.
             </p>
             <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, 1fr)", gap: "12px" }}>
@@ -312,17 +390,17 @@ export default function App() {
                   <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
                     <span style={{ fontSize: "22px", flexShrink: 0 }}>{item.icon}</span>
                     <div>
-                      <div style={{ fontSize: "10px", color: "#475569", fontWeight: 600, letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "2px" }}>{item.label}</div>
-                      <div style={{ fontSize: "13px", color: "#94A3B8", wordBreak: "break-all" }}>{item.value}</div>
+                      <div style={{ fontSize: "10px", color: c.textMuted, fontWeight: 600, letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "2px" }}>{item.label}</div>
+                      <div style={{ fontSize: "13px", color: c.textSub, wordBreak: "break-all" }}>{item.value}</div>
                     </div>
                   </div>
                 );
-                const baseStyle = { background: "#1E293B", border: "1px solid #334155", borderRadius: "12px", padding: "16px", display: "block", textDecoration: "none", transition: "border-color 0.2s" };
+                const baseStyle = { background: c.cardBg, border: "1px solid " + c.cardBorder, borderRadius: "12px", padding: "16px", display: "block", textDecoration: "none", transition: "border-color 0.2s" };
                 return item.href ? (
                   <a key={item.label} href={item.href} target={item.href.startsWith("mailto") ? undefined : "_blank"} rel="noreferrer"
                     style={baseStyle}
-                    onMouseOver={function(e) { e.currentTarget.style.borderColor = "#3B82F6"; }}
-                    onMouseOut={function(e) { e.currentTarget.style.borderColor = "#334155"; }}
+                    onMouseOver={function(e) { e.currentTarget.style.borderColor = c.accent; }}
+                    onMouseOut={function(e) { e.currentTarget.style.borderColor = c.cardBorder; }}
                   >{inner}</a>
                 ) : (
                   <div key={item.label} style={baseStyle}>{inner}</div>
@@ -335,14 +413,15 @@ export default function App() {
       </div>
 
       {/* FOOTER */}
-      <div style={{ borderTop: "1px solid #0F2040", padding: "18px 20px", textAlign: "center" }}>
-        <p style={{ fontSize: "12px", color: "#1E3A5F", margin: 0 }}>
-          Built with React + Vite · Deployed via Jenkins CI/CD to AWS ECS Fargate · Monitored with Grafana
+      <div style={{ borderTop: "1px solid " + c.navBorder, padding: "18px 20px", textAlign: "center" }}>
+        <p style={{ fontSize: "12px", color: c.footerText, margin: 0 }}>
+         DILAN VASANTHARAJ — SITE RELIABILITY ENGINEER — MELBOURNE, AUSTRALIA<br />
+         © 2024 Dilan Vasantharaj. All rights reserved.
         </p>
       </div>
 
       {openProject ? (
-        <ProjectModal project={openProject} onClose={function() { setOpenProject(null); }} />
+        <ProjectModal project={openProject} onClose={function() { setOpenProject(null); }} c={c} />
       ) : null}
 
     </div>
