@@ -136,7 +136,7 @@ const whatIDo = [
 ];
 
 const stats = [
-  { value: "3.5+", label: "Years Experience" },
+  { value: "4+", label: "Years Experience" },
   { value: "99.9%", label: "Uptime Target" },
   { value: "50%", label: "MTTR Reduction" },
   { value: "10+", label: "AWS Services" }
